@@ -209,7 +209,8 @@ def get_last_cc_experimentid(keyring_service):
     )
     r.raise_for_status()
     a = r.json()
-    return sorted(a,key=lambda x: x['registrationTime'])[-1]['_id']
+    # make sure a is not empty before directly acessing
+    return sorted(a,key=lambda x: x['registrationTime'])[-1]['_id']  if a else None
 
 
 def create_cc_config(dvc_files, exp_name, rcc_branch_names, num_of_repeats, live_output_files,
